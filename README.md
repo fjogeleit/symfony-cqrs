@@ -32,3 +32,7 @@ bin/console app:execute-command
 ```bash
 ./vendor/bin/phpunit
 ```
+
+## Read More
+
+[Using CQRS with the Symfony Messenger](https://fjogeleit.dynablogger.net/cqrs-with-symfony/)
