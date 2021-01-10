@@ -1,0 +1,15 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.commands
+
+        buses:
+            messenger.bus.commands:
+                middleware:
+                    - 'App\Messenger\ExceptionMiddleware'
+            messenger.bus.queries:
+                middleware:
+                    - 'App\Messenger\ExceptionMiddleware'
+            messenger.bus.events:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - 'App\Messenger\ExceptionMiddleware'

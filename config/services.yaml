@@ -1,0 +1,49 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+            - '../src/MyBusiness/'
+
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    App\MyBusiness\Messenger\Infrastructure\CommandBus:
+        arguments: ['@messenger.bus.commands']
+
+    App\MyBusiness\Messenger\Infrastructure\QueryBus:
+        arguments: ['@messenger.bus.queries']
+
+    App\MyBusiness\Messenger\Infrastructure\EventBus:
+        arguments: ['@messenger.bus.events']
+
+    App\MyBusiness\Messenger\Domain\EventBus:
+        alias: 'App\MyBusiness\Messenger\Infrastructure\EventBus'
+
+    App\MyBusiness\Messenger\Domain\CommandBus:
+        alias: 'App\MyBusiness\Messenger\Infrastructure\CommandBus'
+
+    App\MyBusiness\Messenger\Domain\QueryBus:
+        alias: 'App\MyBusiness\Messenger\Infrastructure\QueryBus'
+
+    App\MyBusiness\Example\Application\CommandHandler\:
+        resource: '../src/MyBusiness/Example/Application/CommandHandler'
+        tags: [{ name: 'messenger.message_handler', bus: 'messenger.bus.commands' }]
+
+    App\MyBusiness\Example\Application\QueryHandler\:
+        resource: '../src/MyBusiness/Example/Application/QueryHandler'
+        tags: [{ name: 'messenger.message_handler', bus: 'messenger.bus.queries' }]
+
+    App\MyBusiness\Example\Domain\EventHandler\:
+        resource: '../src/MyBusiness/Example/Domain/EventHandler'
+        tags: [{ name: 'messenger.message_handler', bus: 'messenger.bus.events' }]
