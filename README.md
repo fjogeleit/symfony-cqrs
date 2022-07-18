@@ -35,4 +35,4 @@ bin/console app:execute-command
 
 ## Read More
 
-[Using CQRS with the Symfony Messenger](https://fjogeleit.dynablogger.net/cqrs-with-symfony/)
+[Using CQRS with the Symfony Messenger](https://blog.webdev-jogeleit.de/blog/cqrs-with-symfony)
